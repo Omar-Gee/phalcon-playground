@@ -1,0 +1,9 @@
+{
+  "name": "hosIntra Assignment",
+  "description": "Assignment project",
+  "scripts": {
+    "fix-cs": [
+      "prettier app/**/* --write"
+    ]
+  }
+}
