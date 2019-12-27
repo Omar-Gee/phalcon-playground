@@ -16,7 +16,10 @@
       - [Model](#model)
     - [Putting Everything Together](#putting-everything-together)
   - [Connecting To Database](#connecting-to-database)
+  - [CRUD-ing The Database](#crud-ing-the-database)
+- [Volt](#volt)
 - [Resources](#resources)
+  - [Looks like might be useful](#looks-like-might-be-useful)
 
 ## Disclaimer
 These notes give a summary of useful information for roughly understanding what phalcon is and how it works. The more I understand as I go, the more I will be able to add to these notes.
@@ -240,13 +243,100 @@ $di->set(
     }
 );
 ```
-
 ___
 >NOTE: Support for database engines and other database configurations can be found [here](https://docs.phalcon.io/3.4/en/db-layer).
 ___
+
+### CRUD-ing The Database
+To do a simple create and read,  the following user model will be used:
+```
+<?php
+
+use Phalcon\Mvc\Model;
+
+class Users extends Model
+{
+    public $id;
+    public $name;
+    public $email;
+}
+```
+>The class’s public properties map to the fields of the users table in our database.
+
+In our case our user table DDL:
+
+```
+CREATE TABLE `users` (
+	`id` 		int(10) unsigned    NOT NULL AUTO_INCREMENT,
+	`name`	    varchar(70) 	    NOT NULL,
+	`email`		varchar(70)	        NOT NULL,
+
+	PRIMARY KEY (`id`)
+)
+```
+and then:
+
+_instantiate_
+
+` $user = new Users();`
+
+The Phalcon model method _save()_ can now be called on our user instance.
+
+>An array could be passed to save to avoid assign every column manually.
+
+Example based on our database table:
+
+```
+...
+ $user = new Users();
+ $user->save([
+        'name' => 'Omar',
+        'email' => 'example@email.con'
+    ])
+ ...
+```
+
+More on creating records using Phalcon models [here](https://docs.phalcon.io/3.4/en/db-models#creatingupdating-records)
+
+To retrieve users in the database we can simply run one of the following, depending on needs:
+
+```
+// How many users are there?
+$users = Users::find();
+echo 'There are ', count($users), "\n";
+
+// Get and print users ordered by name
+$users = Users::find(
+    [
+        'order' => 'name',
+    ]
+);
+foreach ($users as $user) {
+    echo $user->name, "\n";
+}
+
+// Get first 100 users ordered by name
+$users = Users::find(
+    [
+        'order' => 'name',
+        'limit' => 100,
+    ]
+);
+foreach ($users as $user) {
+   echo $user->name, "\n";
+}
+```
+
+More on finding records using Phalcon models [here](https://docs.phalcon.io/3.4/en/db-models#finding-records)
+
+## Volt
+>Volt views are compiled to pure PHP code, so basically they save the effort of writing PHP code manually
 
 ## Resources
 1. [Phalcon](https://docs.phalcon.io/3.4/en/introduction)
 2. [DevTools](https://github.com/phalcon/phalcon-devtools)
 3. [Discord](https://discordapp.com/invite/kRc2N2M)
 4. [Forum](https://forum.phalcon.io/)
+
+### Looks like might be useful
+* [w3cub](https://docs.w3cub.com/phalcon~3/)
