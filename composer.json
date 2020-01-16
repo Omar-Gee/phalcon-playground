@@ -2,7 +2,7 @@
   "name": "hosIntra Assignment",
   "description": "Assignment project",
   "scripts": {
-    "fix-cs": [
+    "format-document": [
       "prettier app/**/* --write"
     ]
   }

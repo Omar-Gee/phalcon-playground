@@ -1,10 +1,40 @@
+
+<script>
+ $(function () {
+    $('form').on('submit',function (e) {
+      console.log($('form').serialize())
+
+              $.ajax({
+                type: 'POST',
+                url: 'http://localhost:8000/signup/register',
+                data: $('form').serialize(),
+                success: (res) => onSuccess(res)
+              });
+          e.preventDefault();
+        });
+    function onSuccess(res) {
+      $('#content').html(res);
+
+      // TODO: replace view in backend not client ?
+      // window.location.replace("http://localhost:8000/signup/register");
+    }
+});
+</script>
+
+<?php echo $this->tag->linkTo('/', 'back'); ?>
+<div id="content">
 <h2>Sign up using this form</h2>
 
-<?php echo $this->tag->form("signup/register"); ?>
+<?php echo $this->tag->form(["", 'method' => 'POST']); ?>
 
 <p>
   <label for="name">Name</label>
   <?php echo $this->tag->textField("name"); ?>
+</p>
+
+<p>
+  <label for="lastName">Last Name</label>
+  <?php echo $this->tag->textField("lastName"); ?>
 </p>
 
 <p>
@@ -13,7 +43,13 @@
 </p>
 
 <p>
-  <?php echo $this->tag->submitButton("Register"); ?>
+  <?php echo $this->tag->submitButton([
+      'id' => 'submit',
+      'value' => "Register"
+  ]); ?>
 </p>
 
+
 </form>
+</div>
+

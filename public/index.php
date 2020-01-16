@@ -40,9 +40,6 @@ $di->set(
     }
 );
 
-
-
-
 // Setup a base URI
 $di->set(
     'url',
@@ -58,7 +55,7 @@ $di->set('db', function(){
         'host' => '127.0.0.1',
         'username' => 'omargee',
         'password' => 'hosIntraAssignment',
-        'dbname' => 'assignmentdb'
+        'dbname' => 'basic'
     ]);
   }
 );

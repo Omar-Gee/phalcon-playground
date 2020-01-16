@@ -9,9 +9,17 @@ class SignupController extends Controller
     }
     public function registerAction()
     {
+
         $user = new Users();
-        $success = $user->save($this->request->getPost(), ["name", "email"]);
+        $success = $user->save($this->request->getPost(), [
+            "name",
+            "lastName",
+            "email"
+        ]);
+
         if ($success) {
+            //TODO: Make redirect to success view; Look into routing maybe?
+
             echo '<p>Thanks for registering</p>';
         } else {
             echo "Sorry, the following problems were generated: ";
@@ -23,6 +31,10 @@ class SignupController extends Controller
             }
         }
 
+        // TODO: ask what this does?
         $this->view->disable();
+    }
+    public function successAction(){
+        echo '<p>Thanks for registering</p>';
     }
 }

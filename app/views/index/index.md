@@ -1,10 +1,8 @@
- <script>window.onload = function() {
-    if (window.jQuery) {
-        console.log('jquery loaded')
-    }
-}</script>
+> Phalcon will look for a view with the same name as the last executed action inside a directory named as the last executed controller. In our case (app/views/index/index.phtml):
 
+```
 <?php
+
 echo "<h1>Users signed up:</h1>";
 
 echo PHP_EOL;
@@ -20,12 +18,11 @@ if ($users->count() > 0) { ?>
         <th>#</th>
         <th>Name</th>
         <th>Email</th>
-        <th></th>
       </tr>
     </thead>
     <tfoot>
       <tr>
-        <td colspan="4">Users quantity: <?php echo $users->count(); ?></td>
+        <td colspan="3">Users quantity: <?php echo $users->count(); ?></td>
       </tr>
        </tfoot>
     <tbody>
@@ -34,7 +31,6 @@ if ($users->count() > 0) { ?>
         <td><?php echo $user->id; ?> </td>
         <td><?php echo $user->name; ?> </td>
         <td><?php echo $user->email; ?> </td>
-        <td><i class="fa fa-pencil fa-lg" style="color:orange;text-align:center;cursor:pointer;"></i> </td>
       </tr>
        <?php } ?>
     </tbody>
@@ -42,3 +38,4 @@ if ($users->count() > 0) { ?>
     </table>
     <?php }
 
+```
